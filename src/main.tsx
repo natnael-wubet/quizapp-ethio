@@ -14,7 +14,7 @@ import { Notifications } from "@mantine/notifications";
 import { Provider as JotaiProvider } from "jotai";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <MantineProvider theme={theme}>
+    <MantineProvider theme={theme} defaultColorScheme="auto">
       <Notifications />
       <JotaiProvider>
         <App />
