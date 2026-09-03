@@ -1,13 +1,11 @@
 import { motion, useMotionValue, useSpring } from "framer-motion"
 import {
   Brain,
-  Swords,
   Tv,
   Users,
   ArrowRight,
   Zap,
   Trophy,
-  Route,
   Play,
   Menu,
   X,
@@ -15,7 +13,8 @@ import {
   User,
   Globe,
   Timer,
-  Crown,
+  Sparkles,
+  BookOpen,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
@@ -34,7 +33,7 @@ function LangToggle({ className }: { className?: string }) {
       onClick={() => setLang(next)}
       lang={next}
       className={cn(
-        "grid size-9 place-items-center rounded-xl border border-slate-300/70 bg-white/60 text-xs font-bold text-slate-600 shadow-sm backdrop-blur transition hover:scale-105 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-indigo-300",
+        "grid size-9 place-items-center rounded-xl border border-slate-300/70 bg-white/60 text-xs font-bold text-slate-600 shadow-sm backdrop-blur transition hover:scale-105 hover:text-rose-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-rose-300",
         className
       )}
       aria-label={LOCALES[next].name}
@@ -62,7 +61,7 @@ function RotatingWord({ words }: { words: string[] }) {
 
   return (
     <span
-      className="block whitespace-nowrap bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent transition-all duration-300"
+      className="block whitespace-nowrap bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 bg-clip-text text-transparent transition-all duration-300"
       style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(12px)" }}
     >
       {words[index]}
@@ -83,12 +82,12 @@ function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40">
       <div className="mx-auto max-w-6xl px-4 pt-4 sm:px-6 lg:px-8">
-        <nav className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-white/70 px-4 py-2.5 shadow-lg shadow-indigo-500/5 backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70">
+        <nav className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-white/70 px-4 py-2.5 shadow-lg shadow-rose-500/5 backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70">
           <Link to="/" className="flex items-center gap-2">
-            <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/30">
+            <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-rose-500 via-orange-500 to-amber-500 text-white shadow-lg shadow-rose-500/30">
               <Brain className="size-5" />
             </span>
-            <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 bg-clip-text text-lg font-extrabold text-transparent">
+            <span className="bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 bg-clip-text text-lg font-extrabold text-transparent">
               {t("brand", lang)}
             </span>
           </Link>
@@ -98,7 +97,7 @@ function Navbar() {
               <a
                 key={href}
                 href={href}
-                className="transition hover:text-indigo-600 dark:hover:text-indigo-300"
+                className="transition hover:text-rose-600 dark:hover:text-rose-300"
               >
                 {label}
               </a>
@@ -110,13 +109,13 @@ function Navbar() {
             <LangToggle />
             <Link
               to="/login"
-              className="text-sm font-medium text-slate-600 transition hover:text-indigo-600 dark:text-slate-300"
+              className="text-sm font-medium text-slate-600 transition hover:text-rose-600 dark:text-slate-300"
             >
               {t("signIn", lang)}
             </Link>
             <Link
               to="/signup"
-              className="group inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 hover:shadow-xl"
+              className="group inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-rose-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-rose-500/30 transition hover:-translate-y-0.5 hover:shadow-xl"
             >
               {t("getStarted", lang)}
               <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
@@ -163,7 +162,7 @@ function Navbar() {
               <Link
                 to="/signup"
                 onClick={() => setOpen(false)}
-                className="flex-1 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-3 py-2 text-center text-sm font-semibold text-white"
+                className="flex-1 rounded-xl bg-gradient-to-r from-orange-500 to-rose-500 px-3 py-2 text-center text-sm font-semibold text-white"
               >
                 {t("getStarted", lang)}
               </Link>
@@ -196,20 +195,20 @@ function Hero() {
     <section className="relative overflow-hidden pt-28 sm:pt-36">
       {/* animated gaming backdrop */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/60 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-rose-50/60 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950" />
         <div className="absolute left-1/2 top-0 h-full w-[120%] -translate-x-1/2 opacity-70 dark:opacity-60">
           <ShaderBackground className="h-full w-full" />
         </div>
         {/* subtle scanlines */}
-        <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0_2px,rgba(99,102,241,0.03)_2px_4px)]" />
+        <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0_2px,rgba(244,63,94,0.03)_2px_4px)]" />
         {/* soft radial glow for legibility */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,255,255,0.85)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(2,6,23,0.9)_100%)]" />
 
         {/* HUD corner brackets */}
-        <span className="absolute left-4 top-20 h-10 w-10 border-l-2 border-t-2 border-indigo-400/30 dark:border-indigo-400/40" />
-        <span className="absolute right-4 top-20 h-10 w-10 border-r-2 border-t-2 border-fuchsia-400/30 dark:border-fuchsia-400/40" />
-        <span className="absolute bottom-6 left-4 h-10 w-10 border-b-2 border-l-2 border-indigo-400/30 dark:border-indigo-400/40" />
-        <span className="absolute bottom-6 right-4 h-10 w-10 border-b-2 border-r-2 border-fuchsia-400/30 dark:border-fuchsia-400/40" />
+        <span className="absolute left-4 top-20 h-10 w-10 border-l-2 border-t-2 border-rose-400/30 border-rose-400/40" />
+        <span className="absolute right-4 top-20 h-10 w-10 border-r-2 border-t-2 border-amber-400/30 border-amber-400/40" />
+        <span className="absolute bottom-6 left-4 h-10 w-10 border-b-2 border-l-2 border-rose-400/30 border-rose-400/40" />
+        <span className="absolute bottom-6 right-4 h-10 w-10 border-b-2 border-r-2 border-amber-400/30 border-amber-400/40" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
@@ -221,7 +220,7 @@ function Hero() {
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left"
           >
-            <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-indigo-600 backdrop-blur dark:border-indigo-500/30 dark:bg-indigo-500/10 dark:text-indigo-300">
+            <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-rose-600 backdrop-blur dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-red-500 opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-red-500" />
@@ -235,7 +234,12 @@ function Hero() {
               </span>
               {/* rotating hero word */}
               <RotatingWord
-                words={[t("heroTitle2", lang), lang === "am" ? "ተወዳደር" : "Duel", lang === "am" ? "ውጊያ" : "Battle"]}
+                words={[
+                  t("heroTitle2", lang),
+                  lang === "am" ? "ተማር" : "Learn",
+                  lang === "am" ? "ተጫወት" : "Play",
+                  lang === "am" ? "ያድግ" : "Grow",
+                ]}
               />
               <span className="block text-slate-900 dark:text-white" lang={lang}>
                 {t("heroTitle3", lang)}
@@ -252,7 +256,7 @@ function Hero() {
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
               <Link
                 to="/signup"
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-7 py-3.5 text-base font-semibold text-white shadow-xl shadow-indigo-500/30 transition hover:-translate-y-0.5 hover:shadow-2xl sm:w-auto"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 px-7 py-3.5 text-base font-semibold text-white shadow-xl shadow-rose-500/30 transition hover:-translate-y-0.5 hover:shadow-2xl sm:w-auto"
               >
                 <Play className="size-5" />
                 <span lang={lang}>{t("startPlaying", lang)}</span>
@@ -261,7 +265,7 @@ function Hero() {
                 href="#arena"
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white/70 px-7 py-3.5 text-base font-semibold text-slate-700 backdrop-blur transition hover:-translate-y-0.5 hover:bg-white sm:w-auto dark:border-slate-700 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
               >
-                <Tv className="size-5 text-violet-500" />
+                <Tv className="size-5 text-amber-500" />
                 <span lang={lang}>{t("watchLive", lang)}</span>
               </a>
             </div>
@@ -282,13 +286,13 @@ function Hero() {
           >
             <motion.div
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-              className="overflow-hidden rounded-3xl border border-white/20 bg-white/70 shadow-2xl shadow-indigo-500/10 backdrop-blur-xl dark:bg-slate-900/60"
+              className="overflow-hidden rounded-3xl border border-white/20 bg-white/70 shadow-2xl shadow-rose-500/10 backdrop-blur-xl dark:bg-slate-900/60"
             >
               {/* HUD corner brackets on the duel frame */}
-              <span className="pointer-events-none absolute left-2 top-2 size-5 border-l-2 border-t-2 border-indigo-400/50" />
-              <span className="pointer-events-none absolute right-2 top-2 size-5 border-r-2 border-t-2 border-fuchsia-400/50" />
-              <span className="pointer-events-none absolute bottom-2 left-2 size-5 border-b-2 border-l-2 border-indigo-400/50" />
-              <span className="pointer-events-none absolute bottom-2 right-2 size-5 border-b-2 border-r-2 border-fuchsia-400/50" />
+              <span className="pointer-events-none absolute left-2 top-2 size-5 border-l-2 border-t-2 border-rose-400/50" />
+              <span className="pointer-events-none absolute right-2 top-2 size-5 border-r-2 border-t-2 border-amber-400/50" />
+              <span className="pointer-events-none absolute bottom-2 left-2 size-5 border-b-2 border-l-2 border-rose-400/50" />
+              <span className="pointer-events-none absolute bottom-2 right-2 size-5 border-b-2 border-r-2 border-amber-400/50" />
 
               {/* arena header */}
               <div className="flex items-center justify-between border-b border-slate-200/70 px-5 py-3 dark:border-white/10">
@@ -310,7 +314,7 @@ function Hero() {
               {/* matchmaking search */}
               <div className="space-y-4 p-5">
                 <div className="flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white/60 px-4 py-2.5 dark:border-white/10 dark:bg-white/5">
-                  <Search className="size-4 animate-pulse text-violet-500" />
+                  <Search className="size-4 animate-pulse text-rose-500" />
                   <span className="text-sm text-slate-500 dark:text-slate-400" lang={lang}>
                     {t("matchmakingDesc", lang).split(".")[0]}…
                   </span>
@@ -319,12 +323,12 @@ function Hero() {
                 {/* two players card */}
                 <div className="relative flex items-center justify-between gap-3 rounded-2xl border border-slate-200/70 bg-white/80 p-4 dark:border-white/10 dark:bg-slate-800/60">
                   <div className="flex flex-col items-center gap-2">
-                    <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/30">
+                    <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-rose-500 to-amber-500 text-white shadow-lg shadow-rose-500/30">
                       <User className="size-6" />
                     </span>
                     <div className="w-14">
                       <div className="h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
-                        <div className="h-full w-[70%] rounded-full bg-gradient-to-r from-emerald-400 to-indigo-500" />
+                        <div className="h-full w-[70%] rounded-full bg-gradient-to-r from-amber-400 to-rose-500" />
                       </div>
                     </div>
                     <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
@@ -333,21 +337,22 @@ function Hero() {
                   </div>
 
                   <div className="absolute left-1/2 flex -translate-x-1/2 flex-col items-center">
-                    <span className="flex items-center gap-1 rounded-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-3 py-1 text-[10px] font-extrabold text-white shadow-lg">
-                      <Swords className="size-3" /> VS
+                    <span className="flex items-center gap-1 rounded-full bg-gradient-to-r from-rose-500 to-amber-500 px-3 py-1 text-[10px] font-extrabold text-white shadow-lg">
+                      <Sparkles className="size-3" />
+                      {lang === "am" ? "አብረን" : "Together"}
                     </span>
-                    <span className="mt-2 text-[10px] font-semibold text-violet-500" lang={lang}>
+                    <span className="mt-2 text-[10px] font-semibold text-rose-500" lang={lang}>
                       {t("arenaPlayersPlaying", lang)}
                     </span>
                   </div>
 
                   <div className="flex flex-col items-center gap-2">
-                    <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-rose-500 text-white shadow-lg shadow-fuchsia-500/30">
+                    <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-amber-500 to-rose-500 text-white shadow-lg shadow-amber-500/30">
                       <User className="size-6" />
                     </span>
                     <div className="w-14">
                       <div className="h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
-                        <div className="h-full w-[55%] rounded-full bg-gradient-to-r from-fuchsia-400 to-rose-500" />
+                        <div className="h-full w-[55%] rounded-full bg-gradient-to-r from-amber-400 to-rose-500" />
                       </div>
                     </div>
                     <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
@@ -356,14 +361,14 @@ function Hero() {
                   </div>
                 </div>
 
-                {/* bracket hint */}
+                {/* daily lesson hint */}
                 <div className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-white/5">
                   <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
-                    <Crown className="size-4 text-amber-500" />
-                    <span lang={lang}>{t("arenaTitle", lang)}</span>
+                    <Sparkles className="size-4 text-amber-500" />
+                    <span lang={lang}>{t("howTitle", lang)}</span>
                   </div>
                   <span className="text-xs text-slate-400" lang={lang}>
-                    Round of 32
+                    {lang === "am" ? "የዛሬ ትምህርት" : "Today's lesson"}
                   </span>
                 </div>
               </div>
@@ -391,26 +396,26 @@ function Features() {
   const [lang] = useLang()
   const features = [
     {
-      icon: <Swords className="size-6" />,
-      color: "from-indigo-500 to-violet-500",
+      icon: <Brain className="size-6" />,
+      color: "from-rose-500 to-orange-500",
       title: t("liveDuel", lang),
       desc: t("liveDuelDesc", lang),
     },
     {
       icon: <Tv className="size-6" />,
-      color: "from-fuchsia-500 to-purple-500",
+      color: "from-amber-500 to-rose-500",
       title: t("tvBroadcast", lang),
       desc: t("tvBroadcastDesc", lang),
     },
     {
       icon: <Users className="size-6" />,
-      color: "from-emerald-500 to-teal-500",
+      color: "from-orange-500 to-red-500",
       title: t("matchmaking", lang),
       desc: t("matchmakingDesc", lang),
     },
     {
-      icon: <Route className="size-6" />,
-      color: "from-cyan-500 to-blue-500",
+      icon: <BookOpen className="size-6" />,
+      color: "from-rose-500 to-amber-500",
       title: t("learningPaths", lang),
       desc: t("learningPathsDesc", lang),
     },
@@ -420,12 +425,12 @@ function Features() {
     <section id="features" className="relative py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-violet-100 px-4 py-1.5 text-xs font-semibold text-violet-600 dark:bg-violet-500/10 dark:text-violet-300">
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-rose-100 px-4 py-1.5 text-xs font-semibold text-rose-600 dark:bg-rose-500/10 dark:text-rose-300">
             <Zap className="size-4" />
             <span lang={lang}>{t("featuresEyebrow", lang)}</span>
           </span>
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" lang={lang}>
-            <span className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-transparent">
               {t("featuresTitle", lang)}
             </span>
           </h2>
@@ -479,9 +484,9 @@ function Arena() {
   const [lang] = useLang()
   return (
     <section id="arena" className="relative overflow-hidden py-24">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950" />
-      <div className="pointer-events-none absolute -top-32 right-0 size-[30rem] rounded-full bg-fuchsia-500/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -left-20 size-[30rem] rounded-full bg-cyan-500/20 blur-3xl" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-rose-950 via-slate-950 to-amber-950" />
+      <div className="pointer-events-none absolute -top-32 right-0 size-[30rem] rounded-full bg-rose-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -left-20 size-[30rem] rounded-full bg-amber-500/20 blur-3xl" />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -490,7 +495,7 @@ function Arena() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-fuchsia-200">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-rose-200">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-red-400 opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-red-500" />
@@ -507,9 +512,9 @@ function Arena() {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
                 to="/signup"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-500 to-violet-500 px-7 py-3.5 text-base font-semibold text-white shadow-xl shadow-fuchsia-500/30 transition hover:-translate-y-0.5"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 px-7 py-3.5 text-base font-semibold text-white shadow-xl shadow-rose-500/30 transition hover:-translate-y-0.5"
               >
-                <Swords className="size-5" />
+                <Sparkles className="size-5" />
                 <span lang={lang}>{t("joinArena", lang)}</span>
               </Link>
             </div>
@@ -530,9 +535,9 @@ function Arena() {
               <div className="relative aspect-video overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900">
                 <AnimatedBars
                   className="absolute inset-0 h-full w-full opacity-50"
-                  colorA="rgba(232,121,249,0.7)"
-                  colorB="rgba(80,200,255,0.6)"
-                  colorC="rgba(129,140,248,0.4)"
+                  colorA="rgba(251,113,133,0.7)"
+                  colorB="rgba(251,191,36,0.6)"
+                  colorC="rgba(251,146,60,0.4)"
                 />
                 <div className="relative flex h-full flex-col items-center justify-center gap-3 text-center">
                   <span className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/80">
@@ -544,17 +549,17 @@ function Arena() {
                   </span>
                   <div className="flex items-center gap-6">
                     <div className="flex flex-col items-center gap-2">
-                      <span className="grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-lg">
+                      <span className="grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-rose-500 to-amber-500 text-white shadow-lg">
                         <User className="size-7" />
                       </span>
-                      <span className="text-xs font-bold text-white">Player 1</span>
+                      <span className="text-xs font-bold text-white">Learner 1</span>
                     </div>
-                    <span className="text-2xl font-extrabold text-white">VS</span>
+                    <span className="text-2xl font-extrabold text-white">&amp;</span>
                     <div className="flex flex-col items-center gap-2">
-                      <span className="grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-rose-500 text-white shadow-lg">
+                      <span className="grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-amber-500 to-rose-500 text-white shadow-lg">
                         <User className="size-7" />
                       </span>
-                      <span className="text-xs font-bold text-white">Player 2</span>
+                      <span className="text-xs font-bold text-white">Learner 2</span>
                     </div>
                   </div>
                   <div className="h-1.5 w-2/3 overflow-hidden rounded-full bg-white/10">
@@ -563,10 +568,10 @@ function Arena() {
                       whileInView={{ width: "65%" }}
                       viewport={{ once: true }}
                       transition={{ duration: 1.5 }}
-                      className="h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-cyan-400"
+                      className="h-full rounded-full bg-gradient-to-r from-amber-400 to-rose-400"
                     />
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-fuchsia-300">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-rose-300">
                     <Timer className="size-4" /> 00:08
                   </div>
                 </div>
@@ -578,7 +583,7 @@ function Arena() {
               transition={{ repeat: Infinity, duration: 4 }}
               className="absolute -right-4 -top-5 flex items-center gap-2 rounded-2xl bg-white/90 px-4 py-2.5 shadow-2xl"
             >
-              <Users className="size-5 text-indigo-500" />
+              <Users className="size-5 text-amber-500" />
               <div className="text-xs font-bold text-slate-900" lang={lang}>
                 {t("arenaPlayersPlaying", lang)}
               </div>
@@ -595,14 +600,14 @@ function HowItWorks() {
   const steps = [
     { icon: <User className="size-5" />, title: t("step1Title", lang), desc: t("step1Desc", lang) },
     { icon: <Search className="size-5" />, title: t("step2Title", lang), desc: t("step2Desc", lang) },
-    { icon: <Crown className="size-5" />, title: t("step3Title", lang), desc: t("step3Desc", lang) },
+    { icon: <Sparkles className="size-5" />, title: t("step3Title", lang), desc: t("step3Desc", lang) },
   ]
 
   return (
     <section id="how" className="py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-fuchsia-100 px-4 py-1.5 text-xs font-semibold text-fuchsia-600 dark:bg-fuchsia-500/10 dark:text-fuchsia-300">
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-rose-100 px-4 py-1.5 text-xs font-semibold text-rose-600 dark:bg-rose-500/10 dark:text-rose-300">
             <Play className="size-4" />
             <span lang={lang}>{t("howEyebrow", lang)}</span>
           </span>
@@ -621,10 +626,10 @@ function HowItWorks() {
               transition={{ delay: i * 0.15 }}
               className="relative rounded-3xl border border-slate-200/70 bg-white/70 p-8 backdrop-blur dark:border-white/10 dark:bg-white/5"
             >
-              <span className="absolute right-6 top-5 bg-gradient-to-r from-indigo-500 to-fuchsia-500 bg-clip-text text-4xl font-extrabold text-transparent">
+              <span className="absolute right-6 top-5 bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-4xl font-extrabold text-transparent">
                 0{i + 1}
               </span>
-              <div className="mb-5 grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/30">
+              <div className="mb-5 grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-rose-500 to-orange-500 text-white shadow-lg shadow-rose-500/30">
                 {s.icon}
               </div>
               <h3 className="text-lg font-bold text-slate-900 dark:text-white" lang={lang}>
@@ -652,13 +657,13 @@ function CTA() {
           viewport={{ once: true }}
           className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white/70 p-10 text-center shadow-2xl shadow-slate-500/10 backdrop-blur sm:p-16 dark:border-white/10 dark:bg-white/5"
         >
-          <div className="pointer-events-none absolute -left-20 -top-20 size-64 rounded-full bg-violet-500/20 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 -right-20 size-64 rounded-full bg-cyan-500/20 blur-3xl" />
+          <div className="pointer-events-none absolute -left-20 -top-20 size-64 rounded-full bg-rose-500/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 -right-20 size-64 rounded-full bg-amber-500/20 blur-3xl" />
 
           <div className="relative">
             <span className="mb-6 inline-block text-6xl">⚔️</span>
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" lang={lang}>
-              <span className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-transparent">
                 {t("ctaTitle", lang)}
               </span>
             </h2>
@@ -668,7 +673,7 @@ function CTA() {
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 to="/signup"
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-8 py-4 text-base font-semibold text-white shadow-xl shadow-indigo-500/30 transition hover:-translate-y-0.5 hover:shadow-2xl sm:w-auto"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 px-8 py-4 text-base font-semibold text-white shadow-xl shadow-rose-500/30 transition hover:-translate-y-0.5 hover:shadow-2xl sm:w-auto"
               >
                 <span lang={lang}>{t("getStarted", lang)}</span>
                 <ArrowRight className="size-5 transition group-hover:translate-x-0.5" />
@@ -689,10 +694,10 @@ function Footer() {
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2">
-              <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white">
+              <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-rose-500 via-orange-500 to-amber-500 text-white">
                 <Brain className="size-5" />
               </span>
-              <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 bg-clip-text text-lg font-bold text-transparent">
+              <span className="bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 bg-clip-text text-lg font-bold text-transparent">
                 {t("brand", lang)}
               </span>
             </Link>
@@ -702,7 +707,7 @@ function Footer() {
           </div>
 
           {[
-            [t("productCol", lang), ["Live duels", "Leaderboard", "Arena", "Learning"]],
+            [t("productCol", lang), ["Brain games", "Learn together", "Live shows", "Quizzes"]],
             [t("companyCol", lang), ["About", "Careers", "Press", "Blog"]],
             [t("supportCol", lang), ["Help", "Terms", "Privacy", "Contact"]],
           ].map(([title, links]) => (
@@ -715,7 +720,7 @@ function Footer() {
                   <li key={link}>
                     <a
                       href="#"
-                      className="text-sm text-slate-500 transition hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300"
+                      className="text-sm text-slate-500 transition hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-300"
                     >
                       {link}
                     </a>
