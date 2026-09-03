@@ -23,6 +23,7 @@ import { t, useLang, LOCALES, type Lang } from "@/lib/i18n"
 import { ThemeSync, ThemeToggle } from "@/components/ThemeSync"
 import { AnimatedBars } from "@/components/AnimatedBars"
 import { ShaderBackground } from "@/components/ShaderBackground"
+import { TextReveal } from "@/components/ui/text-reveal"
 
 function LangToggle({ className }: { className?: string }) {
   const [lang, setLang] = useLang()
@@ -46,25 +47,45 @@ function LangToggle({ className }: { className?: string }) {
 
 function RotatingWord({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0)
-  const [visible, setVisible] = useState(true)
+  const [leaving, setLeaving] = useState(false)
 
   useEffect(() => {
     const id = setInterval(() => {
-      setVisible(false)
-      setTimeout(() => {
+      setLeaving(true)
+      const t = setTimeout(() => {
         setIndex((i) => (i + 1) % words.length)
-        setVisible(true)
-      }, 250)
-    }, 2200)
+        setLeaving(false)
+      }, 320)
+      return () => clearTimeout(t)
+    }, 2400)
     return () => clearInterval(id)
   }, [words.length])
 
   return (
-    <span
-      className="block whitespace-nowrap bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 bg-clip-text text-transparent transition-all duration-300"
-      style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(12px)" }}
-    >
-      {words[index]}
+    <span className="relative block h-[1.25em] overflow-hidden">
+      <span
+        className="block whitespace-nowrap bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 bg-clip-text text-transparent"
+        style={{
+          transition:
+            "opacity 0.32s cubic-bezier(0.22,1,0.36,1), transform 0.32s cubic-bezier(0.22,1,0.36,1)",
+          opacity: leaving ? 0 : 1,
+          transform: leaving ? "translateY(-18px)" : "translateY(0)",
+        }}
+      >
+        {words[index]}
+      </span>
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 block whitespace-nowrap bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 bg-clip-text text-transparent"
+        style={{
+          transition:
+            "opacity 0.32s cubic-bezier(0.22,1,0.36,1), transform 0.32s cubic-bezier(0.22,1,0.36,1)",
+          opacity: leaving ? 1 : 0,
+          transform: leaving ? "translateY(0)" : "translateY(18px)",
+        }}
+      >
+        {words[(index + 1) % words.length]}
+      </span>
     </span>
   )
 }
@@ -228,10 +249,18 @@ function Hero() {
               <span lang={lang}>{t("heroBadge", lang)}</span>
             </span>
 
-            <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              <span className="block text-slate-900 dark:text-white" lang={lang}>
+            <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl" lang={lang}>
+              <TextReveal
+                as="span"
+                split="char"
+                stagger={0.045}
+                blur={16}
+                yOffset="38%"
+                spring={{ stiffness: 170, damping: 20, mass: 1.1 }}
+                className="text-slate-900 dark:text-white"
+              >
                 {t("heroTitle1", lang)}
-              </span>
+              </TextReveal>
               {/* rotating hero word */}
               <RotatingWord
                 words={[
@@ -241,17 +270,33 @@ function Hero() {
                   lang === "am" ? "ያድግ" : "Grow",
                 ]}
               />
-              <span className="block text-slate-900 dark:text-white" lang={lang}>
+              <TextReveal
+                as="span"
+                split="char"
+                stagger={0.045}
+                delay={0.3}
+                blur={16}
+                yOffset="38%"
+                spring={{ stiffness: 170, damping: 20, mass: 1.1 }}
+                className="text-slate-900 dark:text-white"
+              >
                 {t("heroTitle3", lang)}
-              </span>
+              </TextReveal>
             </h1>
 
-            <p
+            <TextReveal
+              as="p"
+              split="word"
+              stagger={0.05}
+              delay={0.6}
+              blur={4}
+              yOffset="15%"
+              spring={{ stiffness: 180, damping: 26, mass: 0.9 }}
               className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-600 lg:mx-0 dark:text-slate-300"
               lang={lang}
             >
               {t("heroSubtitle", lang)}
-            </p>
+            </TextReveal>
 
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
               <Link
@@ -429,14 +474,33 @@ function Features() {
             <Zap className="size-4" />
             <span lang={lang}>{t("featuresEyebrow", lang)}</span>
           </span>
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" lang={lang}>
-            <span className="bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-transparent">
-              {t("featuresTitle", lang)}
-            </span>
-          </h2>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-300" lang={lang}>
+          <TextReveal
+            as="h2"
+            split="char"
+            stagger={0.03}
+            blur={9}
+            yOffset="28%"
+            spring={{ stiffness: 160, damping: 22, mass: 1 }}
+            whileInView
+            className="bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-3xl font-extrabold tracking-tight text-transparent sm:text-4xl"
+            lang={lang}
+          >
+            {t("featuresTitle", lang)}
+          </TextReveal>
+          <TextReveal
+            as="p"
+            split="word"
+            stagger={0.04}
+            delay={0.3}
+            blur={4}
+            yOffset="14%"
+            spring={{ stiffness: 180, damping: 26, mass: 0.9 }}
+            whileInView
+            className="mt-4 text-lg text-slate-600 dark:text-slate-300"
+            lang={lang}
+          >
             {t("featuresSub", lang)}
-          </p>
+          </TextReveal>
         </div>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -463,15 +527,33 @@ function Features() {
               >
                 {f.icon}
               </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white" lang={lang}>
+              <TextReveal
+                as="h3"
+                split="word"
+                stagger={0.03}
+                blur={3}
+                yOffset="20%"
+                spring={{ stiffness: 190, damping: 26, mass: 0.8 }}
+                whileInView
+                className="text-lg font-bold text-slate-900 dark:text-white"
+                lang={lang}
+              >
                 {f.title}
-              </h3>
-              <p
+              </TextReveal>
+              <TextReveal
+                as="p"
+                split="word"
+                stagger={0.02}
+                delay={0.15}
+                blur={2}
+                yOffset="12%"
+                spring={{ stiffness: 200, damping: 28, mass: 0.8 }}
+                whileInView
                 className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400"
                 lang={lang}
               >
                 {f.desc}
-              </p>
+              </TextReveal>
             </motion.div>
           ))}
         </div>
@@ -502,12 +584,33 @@ function Arena() {
               </span>
               <span lang={lang}>{t("arenaEyebrow", lang)}</span>
             </span>
-            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl" lang={lang}>
+            <TextReveal
+              as="h2"
+              split="char"
+              stagger={0.035}
+              blur={10}
+              yOffset="30%"
+              spring={{ stiffness: 160, damping: 22, mass: 1 }}
+              whileInView
+              className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl"
+              lang={lang}
+            >
               {t("arenaTitle", lang)}
-            </h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80" lang={lang}>
+            </TextReveal>
+            <TextReveal
+              as="p"
+              split="word"
+              stagger={0.05}
+              delay={0.35}
+              blur={4}
+              yOffset="15%"
+              spring={{ stiffness: 180, damping: 26, mass: 0.9 }}
+              whileInView
+              className="mt-6 max-w-xl text-lg leading-relaxed text-white/80"
+              lang={lang}
+            >
               {t("arenaSub", lang)}
-            </p>
+            </TextReveal>
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
@@ -611,9 +714,19 @@ function HowItWorks() {
             <Play className="size-4" />
             <span lang={lang}>{t("howEyebrow", lang)}</span>
           </span>
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" lang={lang}>
+          <TextReveal
+            as="h2"
+            split="char"
+            stagger={0.03}
+            blur={9}
+            yOffset="28%"
+            spring={{ stiffness: 160, damping: 22, mass: 1 }}
+            whileInView
+            className="text-3xl font-extrabold tracking-tight sm:text-4xl"
+            lang={lang}
+          >
             {t("howTitle", lang)}
-          </h2>
+          </TextReveal>
         </div>
 
         <div className="mt-14 grid gap-8 md:grid-cols-3">
@@ -632,12 +745,33 @@ function HowItWorks() {
               <div className="mb-5 grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-rose-500 to-orange-500 text-white shadow-lg shadow-rose-500/30">
                 {s.icon}
               </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white" lang={lang}>
+              <TextReveal
+                as="h3"
+                split="word"
+                stagger={0.03}
+                blur={3}
+                yOffset="20%"
+                spring={{ stiffness: 190, damping: 26, mass: 0.8 }}
+                whileInView
+                className="text-lg font-bold text-slate-900 dark:text-white"
+                lang={lang}
+              >
                 {s.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400" lang={lang}>
+              </TextReveal>
+              <TextReveal
+                as="p"
+                split="word"
+                stagger={0.02}
+                delay={0.15}
+                blur={2}
+                yOffset="12%"
+                spring={{ stiffness: 200, damping: 28, mass: 0.8 }}
+                whileInView
+                className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400"
+                lang={lang}
+              >
                 {s.desc}
-              </p>
+              </TextReveal>
             </motion.div>
           ))}
         </div>
@@ -661,15 +795,34 @@ function CTA() {
           <div className="pointer-events-none absolute -bottom-20 -right-20 size-64 rounded-full bg-amber-500/20 blur-3xl" />
 
           <div className="relative">
-            <span className="mb-6 inline-block text-6xl">⚔️</span>
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" lang={lang}>
-              <span className="bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-transparent">
-                {t("ctaTitle", lang)}
-              </span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-slate-600 dark:text-slate-300" lang={lang}>
+            <span className="mb-6 inline-block text-6xl">🧠</span>
+            <TextReveal
+              as="h2"
+              split="char"
+              stagger={0.03}
+              blur={9}
+              yOffset="28%"
+              spring={{ stiffness: 160, damping: 22, mass: 1 }}
+              whileInView
+              className="bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-3xl font-extrabold tracking-tight text-transparent sm:text-4xl"
+              lang={lang}
+            >
+              {t("ctaTitle", lang)}
+            </TextReveal>
+            <TextReveal
+              as="p"
+              split="word"
+              stagger={0.04}
+              delay={0.3}
+              blur={4}
+              yOffset="14%"
+              spring={{ stiffness: 180, damping: 26, mass: 0.9 }}
+              whileInView
+              className="mx-auto mt-4 max-w-xl text-lg text-slate-600 dark:text-slate-300"
+              lang={lang}
+            >
               {t("ctaSub", lang)}
-            </p>
+            </TextReveal>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 to="/signup"
