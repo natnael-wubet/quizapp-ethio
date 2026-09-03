@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils"
 import { t, useLang, LOCALES, type Lang } from "@/lib/i18n"
 import { ThemeSync, ThemeToggle } from "@/components/ThemeSync"
 import { AnimatedBars } from "@/components/AnimatedBars"
+import { ShaderBackground } from "@/components/ShaderBackground"
 
 function LangToggle({ className }: { className?: string }) {
   const [lang, setLang] = useLang()
@@ -196,13 +197,13 @@ function Hero() {
       {/* animated gaming backdrop */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/60 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950" />
-        <div className="absolute left-1/2 top-0 h-full w-[120%] -translate-x-1/2 opacity-70 dark:opacity-50">
-          <AnimatedBars className="h-full w-full" />
+        <div className="absolute left-1/2 top-0 h-full w-[120%] -translate-x-1/2 opacity-70 dark:opacity-60">
+          <ShaderBackground className="h-full w-full" />
         </div>
         {/* subtle scanlines */}
         <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0_2px,rgba(99,102,241,0.03)_2px_4px)]" />
         {/* soft radial glow for legibility */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(255,255,255,0.7)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(2,6,23,0.85)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,255,255,0.85)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(2,6,23,0.9)_100%)]" />
 
         {/* HUD corner brackets */}
         <span className="absolute left-4 top-20 h-10 w-10 border-l-2 border-t-2 border-indigo-400/30 dark:border-indigo-400/40" />
