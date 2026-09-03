@@ -25,7 +25,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       onClick={() => setColorScheme(isDark ? "light" : "dark")}
       aria-label="Toggle theme"
       className={cn(
-        "grid size-9 place-items-center rounded-xl border border-slate-300/70 bg-white/60 text-slate-600 shadow-sm backdrop-blur transition hover:scale-105 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-indigo-300",
+        "grid size-9 place-items-center rounded-xl border border-slate-300/70 bg-white/60 text-slate-600 shadow-sm backdrop-blur transition hover:scale-105 hover:text-rose-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-amber-300",
         className
       )}
     >

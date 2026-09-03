@@ -135,7 +135,7 @@ function Navbar() {
               {t("signIn", lang)}
             </Link>
             <Link
-              to="/signup"
+              to="/login"
               className="group inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-rose-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-rose-500/30 transition hover:-translate-y-0.5 hover:shadow-xl"
             >
               {t("getStarted", lang)}
@@ -181,7 +181,7 @@ function Navbar() {
                 {t("signIn", lang)}
               </Link>
               <Link
-                to="/signup"
+                to="/login"
                 onClick={() => setOpen(false)}
                 className="flex-1 rounded-xl bg-gradient-to-r from-orange-500 to-rose-500 px-3 py-2 text-center text-sm font-semibold text-white"
               >
@@ -300,7 +300,7 @@ function Hero() {
 
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
               <Link
-                to="/signup"
+                to="/login"
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 px-7 py-3.5 text-base font-semibold text-white shadow-xl shadow-rose-500/30 transition hover:-translate-y-0.5 hover:shadow-2xl sm:w-auto"
               >
                 <Play className="size-5" />
@@ -614,7 +614,7 @@ function Arena() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                to="/signup"
+                to="/login"
                 className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 px-7 py-3.5 text-base font-semibold text-white shadow-xl shadow-rose-500/30 transition hover:-translate-y-0.5"
               >
                 <Sparkles className="size-5" />
@@ -825,7 +825,7 @@ function CTA() {
             </TextReveal>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                to="/signup"
+                to="/login"
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 px-8 py-4 text-base font-semibold text-white shadow-xl shadow-rose-500/30 transition hover:-translate-y-0.5 hover:shadow-2xl sm:w-auto"
               >
                 <span lang={lang}>{t("getStarted", lang)}</span>
