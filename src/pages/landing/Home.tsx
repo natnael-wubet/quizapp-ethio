@@ -17,7 +17,7 @@ import {
   Timer,
   Crown,
 } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import { t, useLang, LOCALES, type Lang } from "@/lib/i18n"
@@ -41,6 +41,31 @@ function LangToggle({ className }: { className?: string }) {
       <Globe className="absolute size-4 opacity-0" aria-hidden="true" />
       <span lang={next}>{LOCALES[next].flag}</span>
     </button>
+  )
+}
+
+function RotatingWord({ words }: { words: string[] }) {
+  const [index, setIndex] = useState(0)
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setVisible(false)
+      setTimeout(() => {
+        setIndex((i) => (i + 1) % words.length)
+        setVisible(true)
+      }, 250)
+    }, 2200)
+    return () => clearInterval(id)
+  }, [words.length])
+
+  return (
+    <span
+      className="block whitespace-nowrap bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent transition-all duration-300"
+      style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(12px)" }}
+    >
+      {words[index]}
+    </span>
   )
 }
 
@@ -168,14 +193,22 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden pt-28 sm:pt-36">
-      {/* grootstudio-style animated energy backdrop */}
+      {/* animated gaming backdrop */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/60 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950" />
-        <div className="absolute left-1/2 top-0 h-full w-[120%] -translate-x-1/2 opacity-60 dark:opacity-40">
+        <div className="absolute left-1/2 top-0 h-full w-[120%] -translate-x-1/2 opacity-70 dark:opacity-50">
           <AnimatedBars className="h-full w-full" />
         </div>
+        {/* subtle scanlines */}
+        <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent_0_2px,rgba(99,102,241,0.03)_2px_4px)]" />
         {/* soft radial glow for legibility */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(255,255,255,0.7)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(2,6,23,0.85)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(255,255,255,0.7)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(2,6,23,0.85)_100%)]" />
+
+        {/* HUD corner brackets */}
+        <span className="absolute left-4 top-20 h-10 w-10 border-l-2 border-t-2 border-indigo-400/30 dark:border-indigo-400/40" />
+        <span className="absolute right-4 top-20 h-10 w-10 border-r-2 border-t-2 border-fuchsia-400/30 dark:border-fuchsia-400/40" />
+        <span className="absolute bottom-6 left-4 h-10 w-10 border-b-2 border-l-2 border-indigo-400/30 dark:border-indigo-400/40" />
+        <span className="absolute bottom-6 right-4 h-10 w-10 border-b-2 border-r-2 border-fuchsia-400/30 dark:border-fuchsia-400/40" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
@@ -199,9 +232,10 @@ function Hero() {
               <span className="block text-slate-900 dark:text-white" lang={lang}>
                 {t("heroTitle1", lang)}
               </span>
-              <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent" lang={lang}>
-                {t("heroTitle2", lang)}
-              </span>
+              {/* rotating hero word */}
+              <RotatingWord
+                words={[t("heroTitle2", lang), lang === "am" ? "ተወዳደር" : "Duel", lang === "am" ? "ውጊያ" : "Battle"]}
+              />
               <span className="block text-slate-900 dark:text-white" lang={lang}>
                 {t("heroTitle3", lang)}
               </span>
@@ -249,6 +283,12 @@ function Hero() {
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
               className="overflow-hidden rounded-3xl border border-white/20 bg-white/70 shadow-2xl shadow-indigo-500/10 backdrop-blur-xl dark:bg-slate-900/60"
             >
+              {/* HUD corner brackets on the duel frame */}
+              <span className="pointer-events-none absolute left-2 top-2 size-5 border-l-2 border-t-2 border-indigo-400/50" />
+              <span className="pointer-events-none absolute right-2 top-2 size-5 border-r-2 border-t-2 border-fuchsia-400/50" />
+              <span className="pointer-events-none absolute bottom-2 left-2 size-5 border-b-2 border-l-2 border-indigo-400/50" />
+              <span className="pointer-events-none absolute bottom-2 right-2 size-5 border-b-2 border-r-2 border-fuchsia-400/50" />
+
               {/* arena header */}
               <div className="flex items-center justify-between border-b border-slate-200/70 px-5 py-3 dark:border-white/10">
                 <div className="flex items-center gap-2">
@@ -281,6 +321,11 @@ function Hero() {
                     <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/30">
                       <User className="size-6" />
                     </span>
+                    <div className="w-14">
+                      <div className="h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
+                        <div className="h-full w-[70%] rounded-full bg-gradient-to-r from-emerald-400 to-indigo-500" />
+                      </div>
+                    </div>
                     <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
                       Lv. 12
                     </span>
@@ -299,6 +344,11 @@ function Hero() {
                     <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-rose-500 text-white shadow-lg shadow-fuchsia-500/30">
                       <User className="size-6" />
                     </span>
+                    <div className="w-14">
+                      <div className="h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
+                        <div className="h-full w-[55%] rounded-full bg-gradient-to-r from-fuchsia-400 to-rose-500" />
+                      </div>
+                    </div>
                     <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
                       Lv. 12
                     </span>
