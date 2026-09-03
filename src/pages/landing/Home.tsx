@@ -172,13 +172,7 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/60 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950" />
         <div className="absolute left-1/2 top-0 h-full w-[120%] -translate-x-1/2 opacity-60 dark:opacity-40">
-          <AnimatedBars
-            className="h-full w-full"
-            numBars={30}
-            colorA="rgba(99,102,241,0.9)"
-            colorB="rgba(217,70,239,0.9)"
-            duration={4}
-          />
+          <AnimatedBars className="h-full w-full" />
         </div>
         {/* soft radial glow for legibility */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(255,255,255,0.7)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(2,6,23,0.85)_100%)]" />
@@ -485,10 +479,9 @@ function Arena() {
               <div className="relative aspect-video overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900">
                 <AnimatedBars
                   className="absolute inset-0 h-full w-full opacity-50"
-                  numBars={20}
-                  colorA="rgba(232,121,249,0.9)"
-                  colorB="rgba(80,200,255,0.9)"
-                  duration={3}
+                  colorA="rgba(232,121,249,0.7)"
+                  colorB="rgba(80,200,255,0.6)"
+                  colorC="rgba(129,140,248,0.4)"
                 />
                 <div className="relative flex h-full flex-col items-center justify-center gap-3 text-center">
                   <span className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/80">
