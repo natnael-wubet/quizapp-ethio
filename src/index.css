@@ -129,7 +129,6 @@
   html {
     @apply scroll-smooth font-sans;
     }
-
   /* Amharic / Ethiopic text uses its own glyph stack so fidel renders crisply */
   .font-ethiopic,
   [lang="am"] {
@@ -138,5 +137,25 @@
 
   ::selection {
     @apply bg-indigo-500/30 text-foreground;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .animate-marquee {
+    animation: marquee var(--marquee-duration, 40s) linear infinite;
+  }
+  .marquee-paused:hover .animate-marquee {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 }
